@@ -1,3 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Allegro */
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_native_dialog.h>
+
 #include "display.h"
 
 Window initWindow(int width, int height){
@@ -39,4 +48,11 @@ Window initWindow(int width, int height){
     al_start_timer(window.timer);
 
     return window;
+}
+
+void deinitWindow(Window win)
+{
+  al_destroy_timer(win.timer);
+  al_destroy_event_queue(win.event_queue);
+  al_destroy_display(win.display);
 }

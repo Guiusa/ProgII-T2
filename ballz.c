@@ -1,14 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Graficos */
 #include "display.h"
 
-#define HEIGHT 800
-#define WIDTH 600
+#define HEIGHT 600
+#define WIDTH 800
 
-int main(){
+int main() {
     Window win;
     win = initWindow(WIDTH, HEIGHT);
 
     printf("\n\nENTER para encerrar esta porra");
     getchar();
 
-    return 0;
+    deinitWindow(win);
 }
