@@ -56,3 +56,22 @@ void deinitWindow(Window win)
   al_destroy_event_queue(win.event_queue);
   al_destroy_display(win.display);
 }
+
+
+
+ALLEGRO_BITMAP* createImg(char* name, int width, int height, Window win){
+    ALLEGRO_BITMAP *img, *bmp;
+
+    bmp = al_create_bitmap(width, height);
+    al_set_target_bitmap(bmp);
+
+
+    if(name){
+        img = al_load_bitmap(name);
+        al_draw_bitmap(img, 0, 0, 0);
+    }
+
+    al_set_target_bitmap(al_get_backbuffer(win.display));
+
+    return bmp;
+}

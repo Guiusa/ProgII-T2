@@ -1,0 +1,7 @@
+const colors  = [
+	[172,116,31], //MARROM ESCURO
+	[232,179,13], //LARANJA
+	[250,212,89], //AMARELO 
+	[252,245,164], //MARROM CLARO
+	[63,144,67]   // VERDE ESCURO
+];

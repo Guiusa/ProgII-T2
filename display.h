@@ -19,3 +19,11 @@ typedef struct {
 
 Window initWindow(int widt, int height);
 void deinitWindow(Window win);
+
+ALLEGRO_BITMAP* createImg(char* name, int width, int height, Window win);
+
+#define MARROM_ESCURO PIXEL(172,116,31)
+#define LARANJA PIXEL(232,179,13)
+#define AMARELO PIXEL(250,212,89)
+#define MARROM_CLARO PIXEL(252,245,164)
+#define VERDE_ESCURO PIXEL(63, 144, 67)

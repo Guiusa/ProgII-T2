@@ -6,6 +6,8 @@ body {
     color: white;
 }
 .p5Canvas {
+    min-width: 33vw;
+    min-height: 33vw;
     max-width: 80vw;
     max-height: 80vw;
     margin-top: 10px;
