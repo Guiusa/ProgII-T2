@@ -20,9 +20,6 @@ new p5(function (k) {
                 k.line(WIDTH/2, HEIGHT, WIDTH, k.random(0, HEIGHT));
             }
         }
-        k.noStroke();
-        k.fill(0);
-        k.rect(0.1*WIDTH, 0.1*HEIGHT, 0.8*WIDTH, 0.8*HEIGHT);
     };
 
     k.mouseClicked = function () {

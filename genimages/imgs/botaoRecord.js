@@ -4,9 +4,9 @@ new p5(function (k) {
     const HEIGHT = 240;
     k.setup = function(){
         cnv = k.createCanvas(WIDTH, HEIGHT);
-        k.background(0);
         k.fill(colors[4]);
-        k.rect(0, 0, WIDTH, HEIGHT, 40);
+        k.noStroke();
+        k.rect(0.1*WIDTH, 0.1*HEIGHT, 0.8*WIDTH, 0.8*HEIGHT, 50);
         k.fill(0);
         k.textSize(120);
         k.text("RECORD", 0.1*WIDTH, 0.65*HEIGHT);

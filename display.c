@@ -18,12 +18,9 @@ Window initWindow(int width, int height){
     al_init_font_addon();
     al_init_ttf_addon();
 
-    puts("Modos 60Hz disponíveis:\n");
     int i;
     for(i = 0; i < al_get_num_display_modes(); ++i){
         al_get_display_mode(i, &window.disp_data);
-        if(window.disp_data.refresh_rate == 60)
-            printf("%d: %d %d\n", i, window.disp_data.width, window.disp_data.height);
         if(window.disp_data.width == width && window.disp_data.height == height)
             break;
     }
