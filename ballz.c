@@ -12,12 +12,14 @@
 int main() {
     Window menu;
     Window game;
+    Window telaRecorde;
     //ALLEGRO_BITMAP* ball;
     //ball = createImg("ball.png", BALL_SIZE, BALL_SIZE, win);
     // al_draw_bitmap(ball, WIDTH/2 - BALL_SIZE/2, HEIGHT - BALL_SIZE, 0);
     
     bool sairMenu = false;
     bool rodarJogo = false;
+    bool rodarRecorde = false;
     ALLEGRO_BITMAP* fundo; 
     ALLEGRO_BITMAP* play;
     ALLEGRO_BITMAP* record;
@@ -45,32 +47,72 @@ int main() {
                     sairMenu = true;    
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                if((ev.mouse.x >= 80 && ev.mouse.x <= 720) && (ev.mouse.y >= 60 && ev.mouse.y <= 300)){
-                    printf("PLAY\n");
-                    rodarJogo = true;
-                    sairMenu = true;
+                if(ev.mouse.x >= 80 && ev.mouse.x <= 720){
+                    if(ev.mouse.y >= 60 && ev.mouse.y <= 300){
+                        rodarJogo = true;
+                        sairMenu = true;
+                    }
+                    else if(ev.mouse.y >= 300 && ev.mouse.y <= 540){
+                        sairMenu = true;
+                        rodarRecorde = true;
+                        printf("RECORDE\n");
+                    }
                 }
                 break;
         }
     }
     deinitWindow(menu);
 
-    if(rodarJogo)
+    if(rodarJogo){
         game = initWindow(WIDTH, HEIGHT);
+        while(rodarJogo){
+            ALLEGRO_EVENT ev;
+            al_wait_for_event(game.event_queue, &ev);
 
-    while(rodarJogo){
-        ALLEGRO_EVENT ev;
-        al_wait_for_event(game.event_queue, &ev);
-
-        switch(ev.type){
-            case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                rodarJogo = false;
-                break;
-            case ALLEGRO_EVENT_KEY_UP:
-                if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+            switch(ev.type){
+                case ALLEGRO_EVENT_DISPLAY_CLOSE:
                     rodarJogo = false;
+                    deinitWindow(game);
+                    break;
+                case ALLEGRO_EVENT_KEY_UP:
+                    if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+                        deinitWindow(game);
+                        rodarJogo = false;
+                    }
+            }
+        }
+    }
+    else if(rodarRecorde){
+        int txtH, txtW;
+        telaRecorde = initWindow(WIDTH, HEIGHT);
+        
+        ALLEGRO_BITMAP* txt = createTxt("SEU RECORDE É:", &txtW, &txtW, telaRecorde);
+    
+        al_draw_bitmap(fundo, 0, 0, 0);
+        al_draw_bitmap(txt, WIDTH/2, HEIGHT/2, 0);
+
+        al_flip_display();
+
+        while(rodarRecorde){
+            ALLEGRO_EVENT ev;
+            al_wait_for_event(telaRecorde.event_queue, &ev);
+
+            switch(ev.type){
+                case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                    rodarRecorde = false;
+                    deinitWindow(telaRecorde);
+                    break;
+                case ALLEGRO_EVENT_KEY_UP:
+                    if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+                        rodarRecorde = false;
+                        deinitWindow(telaRecorde);
+                    }
+            }
         }
     }
 
-    deinitWindow(game);
+
+    al_destroy_bitmap(fundo);
+    al_destroy_bitmap(play);
+    al_destroy_bitmap(record);
 }
