@@ -73,11 +73,11 @@ ALLEGRO_BITMAP* createImg(char* name, int width, int height, Window win){
     return bmp;
 }
 
-ALLEGRO_BITMAP* createTxt(char* texto, int* width, int* height, Window win){
-    ALLEGRO_BITMAP *img, *bmp;
+ALLEGRO_BITMAP* createTxt(int size, char* texto, int* width, int* height, Window win){
+    ALLEGRO_BITMAP *bmp;
     ALLEGRO_FONT* font;
 
-    font = al_load_ttf_font("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 24, 0);
+    font = al_load_ttf_font("/usr/share/fonts/truetype/freefont/FreeSans.ttf", size, 0);
     *width = al_get_text_width(font, texto) + 50;
     *height = al_get_font_line_height(font) + 50;
     bmp = al_create_bitmap(*width, *height);
