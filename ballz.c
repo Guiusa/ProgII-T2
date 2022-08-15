@@ -74,6 +74,7 @@ int main() {
         al_clear_to_color(PIXEL(0, 0, 0));
         al_draw_bitmap(bola, WIDTH/2 - BALL_SIZE/2, HEIGHT-BALL_SIZE, 0);
         al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
+        al_flip_display();
 
         while(rodarJogo){
             ALLEGRO_EVENT ev;
@@ -125,7 +126,6 @@ int main() {
             }
         }
     }
-
 
     al_destroy_bitmap(fundo);
     al_destroy_bitmap(play);

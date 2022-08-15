@@ -11,7 +11,7 @@ debug: CFLAGS += -g -D__DEBUG__
 
 all debug: $(PROGS)
 
-$(PROGS) : % : %.o display.o
+$(PROGS) : % : %.o display.o ball.o
 	gcc $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
