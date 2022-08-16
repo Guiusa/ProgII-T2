@@ -71,16 +71,20 @@ int main() {
         game = initWindow(WIDTH, HEIGHT);
         bola = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
     
-        al_clear_to_color(PIXEL(0, 0, 0));
-        al_draw_bitmap(bola, WIDTH/2 - BALL_SIZE/2, HEIGHT-BALL_SIZE, 0);
-        al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
-        al_flip_display();
+        bool redraw;
+        bool is_down = false;
+        int x, y;
 
         while(rodarJogo){
+            redraw = false;
+
             ALLEGRO_EVENT ev;
             al_wait_for_event(game.event_queue, &ev);
         
             switch(ev.type){
+                case ALLEGRO_EVENT_TIMER:
+                    redraw = true;
+                    break;
                 case ALLEGRO_EVENT_DISPLAY_CLOSE:
                     rodarJogo = false;
                     deinitWindow(game);
@@ -92,9 +96,30 @@ int main() {
                     }
                     break;
                 case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                    al_draw_line(WIDTH/2, HEIGHT - BALL_SIZE, ev.mouse.x, ev.mouse.y, MARROM_CLARO, 0);
-                    al_flip_display();
+                    is_down = true;
                     break;
+                case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                    is_down = false;
+                    break;
+                case ALLEGRO_EVENT_MOUSE_AXES:
+                    if(ev.mouse.y <= 0.9*HEIGHT){
+                        x = ev.mouse.x;
+                        y = ev.mouse.y;
+                    }   
+                    break;
+            }
+
+            if(redraw){
+                if(al_is_event_queue_empty(game.event_queue)){
+                    al_clear_to_color(PIXEL(0, 0, 0));
+                    
+                    if(is_down){
+                        al_draw_line(WIDTH/2, HEIGHT - BALL_SIZE, x, y, MARROM_CLARO, 2);
+                    }
+                    al_draw_bitmap(bola, WIDTH/2 - BALL_SIZE/2, HEIGHT-BALL_SIZE, 0);
+                    al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
+                    al_flip_display();
+                }
             }
         }
     }
