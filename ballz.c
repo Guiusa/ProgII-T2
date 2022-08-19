@@ -68,7 +68,6 @@ int main() {
     deinitWindow(menu);
 
     if(rodarJogo){
-        float dist;
         ball* bola;
         bola = criaBola(WIDTH/2, HEIGHT-BALL_SIZE/2); 
         bola->img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
@@ -78,8 +77,8 @@ int main() {
         bool redraw;
         bool is_down = false;
         bool balls_moving = false;
-        bool just_shoot = false;
-        float x, y;
+        bool just_shoot = true;
+        float x, y, dist;
 
         while(rodarJogo){
             redraw = false;
@@ -89,13 +88,6 @@ int main() {
         
             switch(ev.type){
                 case ALLEGRO_EVENT_TIMER:
-                    if(just_shoot){
-                        dist = distance(bola->x, bola->y, ev.mouse.x, ev.mouse.y);
-                        bola->vx = vector(ev.mouse.x, bola->x, dist);
-                        bola->vy = -vector(ev.mouse.y, bola->y, dist);
-                        just_shoot = false;
-                        balls_moving = true;
-                    }
                     redraw = true;
                     break;
 
@@ -116,7 +108,14 @@ int main() {
                     break;
 
                 case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                    just_shoot = true;
+                    if(!balls_moving){
+                        dist = distance(bola->x, bola->y, ev.mouse.x, ev.mouse.y);
+                        bola->vx = 16*vector(ev.mouse.x, bola->x, dist);
+                        bola->vy = 16*vector(ev.mouse.y, bola->y, dist);
+                        balls_moving = true;
+                    }
+                
+                    
                     is_down = false;
                     break;
 
@@ -132,11 +131,27 @@ int main() {
                 if(al_is_event_queue_empty(game.event_queue)){
                     al_clear_to_color(PIXEL(0, 0, 0));
                     if(balls_moving){
+                        if(bola->x < BALL_SIZE/2 || bola->x > WIDTH-BALL_SIZE/2){
+                            bola->vx = -bola->vx;
+                            just_shoot = false;
+                        }
+                        if(bola->y < BALL_SIZE/2){
+                            bola->vy = -bola->vy;
+                            just_shoot = false;
+                        }
+                        if(bola->y + BALL_SIZE/2 > 0.9*HEIGHT && !just_shoot){
+                            balls_moving = false;
+                            bola->vx = 0.0;
+                            bola->vy = 0.0;
+                            bola->y = HEIGHT-BALL_SIZE/2;
+                            just_shoot = true;
+                        }
+
                         bola->x = bola->x + bola->vx;
                         bola->y = bola->y + bola->vy;
                     }
-                    if(is_down){
-                        al_draw_line(WIDTH/2, HEIGHT - BALL_SIZE, x, y, MARROM_CLARO, 2);
+                    if(is_down && !balls_moving){
+                        al_draw_line(bola->x, bola->y, x, y, MARROM_CLARO, 2);
                     }
                     al_draw_bitmap(bola->img, bola->x - BALL_SIZE/2, bola->y - BALL_SIZE/2, 0);
                     al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);

@@ -11,7 +11,7 @@ ball* criaBola(float x, float y){
     return bola;
 }
 
-float distance(float x1, float y1, float x2, float y2){
+float distance(float x1, float y1, int x2, int y2){
     float sqrX = x2-x1;
     sqrX = sqrX*sqrX;
 
@@ -22,6 +22,8 @@ float distance(float x1, float y1, float x2, float y2){
 
     return result;
 }
-float vector(float k2, float k1, float dist){
-    return ((k2-k1) / dist);
+
+float vector(int k2, float k1, float dist){
+    float result = (k2-k1) / dist;
+    return (result);
 }
