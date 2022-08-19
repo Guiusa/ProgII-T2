@@ -108,7 +108,7 @@ int main() {
                     break;
 
                 case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                    if(!balls_moving){
+                    if(!balls_moving && ev.mouse.y < 0.9*HEIGHT){
                         dist = distance(bola->x, bola->y, ev.mouse.x, ev.mouse.y);
                         bola->vx = 16*vector(ev.mouse.x, bola->x, dist);
                         bola->vy = 16*vector(ev.mouse.y, bola->y, dist);
