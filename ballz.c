@@ -4,6 +4,7 @@
 
 /* Graficos */
 #include "display.h"
+#include "ball.h"
 #include "allegro5/allegro_primitives.h"
 
 #define WIDTH 800
@@ -26,7 +27,6 @@ int main() {
     ALLEGRO_BITMAP* fundo; 
     ALLEGRO_BITMAP* play;
     ALLEGRO_BITMAP* record;
-    ALLEGRO_BITMAP* bola;
     
     menu = initWindow(WIDTH, HEIGHT);
     fundo = createImg("imgsGame/fundoMenu.png", WIDTH, HEIGHT, menu);
@@ -68,12 +68,18 @@ int main() {
     deinitWindow(menu);
 
     if(rodarJogo){
+        float dist;
+        ball* bola;
+        bola = criaBola(WIDTH/2, HEIGHT-BALL_SIZE/2); 
+        bola->img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
         game = initWindow(WIDTH, HEIGHT);
-        bola = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
-    
+        
+        
         bool redraw;
         bool is_down = false;
-        int x, y;
+        bool balls_moving = false;
+        bool just_shoot = false;
+        float x, y;
 
         while(rodarJogo){
             redraw = false;
@@ -83,24 +89,37 @@ int main() {
         
             switch(ev.type){
                 case ALLEGRO_EVENT_TIMER:
+                    if(just_shoot){
+                        dist = distance(bola->x, bola->y, ev.mouse.x, ev.mouse.y);
+                        bola->vx = vector(ev.mouse.x, bola->x, dist);
+                        bola->vy = -vector(ev.mouse.y, bola->y, dist);
+                        just_shoot = false;
+                        balls_moving = true;
+                    }
                     redraw = true;
                     break;
+
                 case ALLEGRO_EVENT_DISPLAY_CLOSE:
                     rodarJogo = false;
                     deinitWindow(game);
                     break;
+
                 case ALLEGRO_EVENT_KEY_UP:
                     if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
                         deinitWindow(game);
                         rodarJogo = false;
                     }
                     break;
+
                 case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                     is_down = true;
                     break;
+
                 case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+                    just_shoot = true;
                     is_down = false;
                     break;
+
                 case ALLEGRO_EVENT_MOUSE_AXES:
                     if(ev.mouse.y <= 0.9*HEIGHT){
                         x = ev.mouse.x;
@@ -112,11 +131,14 @@ int main() {
             if(redraw){
                 if(al_is_event_queue_empty(game.event_queue)){
                     al_clear_to_color(PIXEL(0, 0, 0));
-                    
+                    if(balls_moving){
+                        bola->x = bola->x + bola->vx;
+                        bola->y = bola->y + bola->vy;
+                    }
                     if(is_down){
                         al_draw_line(WIDTH/2, HEIGHT - BALL_SIZE, x, y, MARROM_CLARO, 2);
                     }
-                    al_draw_bitmap(bola, WIDTH/2 - BALL_SIZE/2, HEIGHT-BALL_SIZE, 0);
+                    al_draw_bitmap(bola->img, bola->x - BALL_SIZE/2, bola->y - BALL_SIZE/2, 0);
                     al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
                     al_flip_display();
                 }

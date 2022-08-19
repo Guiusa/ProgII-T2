@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 15 19:19:29 2022
+# Make data base, printed on Thu Aug 18 23:01:43 2022
 
 # Variables
 
@@ -18,7 +18,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 DESKTOP_SESSION = cinnamon
 # default
 .SHELLFLAGS := -c
- 
 # makefile (from 'makefile', line 2)
 INCDIR = .
 # environment
@@ -84,7 +83,7 @@ PATH = /home/guiusepe/.nvm/versions/node/v17.4.0/bin:/usr/local/sbin:/usr/local/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1100,unix/guiusepe-computer:/tmp/.ICE-unix/1100
+SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1095,unix/guiusepe-computer:/tmp/.ICE-unix/1095
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -116,7 +115,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1172
+SSH_AGENT_PID = 1167
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -176,7 +175,7 @@ LC_TELEPHONE = pt_BR.UTF-8
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /home/guiusepe/Desktop/git
+OLDPWD = /home/guiusepe
 # default
 .VARIABLES := 
 # automatic
@@ -224,13 +223,13 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # makefile (from 'makefile', line 5)
-LIBS = $(ALLEGRO)
+LIBS = $(ALLEGRO) -lm
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/34e197b7_613e_4d79_b4fb_7ae734cbe253
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/7afa1337_6e54_4c5a_b390_c78579dc94d2
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.291
+GNOME_TERMINAL_SERVICE = :1.1153
 # default
 SUFFIXES := 
 # environment
@@ -248,7 +247,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 13152
+VSCODE_PID = 26650
 # variable set hash-table stats:
 # Load=119/1024=12%, Rehash=0, Collisions=13/152=9%
 
@@ -258,9 +257,9 @@ VSCODE_PID = 13152
 
 # Directories
 
-# . (device 2054, inode 5030214): 17 files, no impossibilities.
+# . (device 2054, inode 5030214): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -284,7 +283,8 @@ all: ballz
 ballz.o: ballz.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'ballz'
-#  Last modified 2022-08-11 21:10:28.541769637
+ 
+#  Last modified 2022-08-18 22:36:35.270190195
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -301,7 +301,6 @@ ballz.o: ballz.c
 # < := ballz.c
 # automatic
 # ^ := ballz.c
- 
 # automatic
 # ? := ballz.c
 # variable set hash-table stats:
@@ -327,7 +326,7 @@ debug: ballz
 ballz: ballz.o display.o ball.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'ballz'
-#  Last modified 2022-08-11 21:10:28.593769571
+#  Last modified 2022-08-18 22:40:15.901985034
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -338,7 +337,7 @@ ballz: ballz.o display.o ball.o
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-15 18:40:57.992931686
+#  Last modified 2022-08-18 22:40:31.685968786
 #  File has been updated.
 #  Successfully updated.
 
@@ -360,7 +359,7 @@ purge: clean
 # Not a target:
 ballz.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-15 18:40:57.992931686
+#  Last modified 2022-08-18 22:53:22.068744685
 #  File has been updated.
 #  Successfully updated.
 
@@ -389,9 +388,9 @@ display.o:
 # strcache buffers: 1 (0) / strings = 29 / storage = 218 B / avg = 7 B
 # current buf: size = 8162 B / used = 218 B / count = 29 / avg = 7 B
 
-# strcache performance: lookups = 51 / hit rate = 43%
+# strcache performance: lookups = 52 / hit rate = 44%
 # hash-table stats:
-# Load=29/8192=0%, Rehash=0, Collisions=1/51=2%
-# Finished Make data base on Mon Aug 15 19:19:29 2022
+# Load=29/8192=0%, Rehash=0, Collisions=1/52=2%
+# Finished Make data base on Thu Aug 18 23:01:43 2022
 
  
