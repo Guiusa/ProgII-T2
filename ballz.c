@@ -3,8 +3,8 @@
 #include <string.h>
 
 /* Graficos */
-#include "display.h"
-#include "ball.h"
+#include "libs/display.h"
+#include "libs/ball.h"
 #include "allegro5/allegro_primitives.h"
 
 #define WIDTH 800
