@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Graficos */
 #include "libs/display.h"
 #include "libs/ball.h"
+#include "libs/objects.h"
+
 #include "allegro5/allegro_primitives.h"
 
 #define WIDTH 800
@@ -68,6 +69,12 @@ int main() {
     deinitWindow(menu);
 
     if(rodarJogo){
+        int* grid = criaGrid();
+        newGen(grid);
+        printaGens(grid);
+
+        int* squares = criaSquares();
+
         ball* bola;
         bola = criaBola(WIDTH/2, HEIGHT-BALL_SIZE/2); 
         bola->img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
@@ -145,6 +152,10 @@ int main() {
                             bola->vy = 0.0;
                             bola->y = HEIGHT-BALL_SIZE/2;
                             just_shoot = true;
+                            
+                            newGen(grid);
+                            printf("\n\n");
+                            printaGens(grid);
                         }
 
                         bola->x = bola->x + bola->vx;
