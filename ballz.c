@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "libs/display.h"
+//#include "libs/display.h"
 #include "libs/ball.h"
 #include "libs/objects.h"
+
+#include <math.h>
 
 #include "allegro5/allegro_primitives.h"
 
@@ -71,7 +73,6 @@ int main() {
     if(rodarJogo){
         int* grid = criaGrid();
         newGen(grid);
-        printaGens(grid);
 
         int* squares = criaSquares();
 
@@ -154,9 +155,16 @@ int main() {
                             just_shoot = true;
                             
                             newGen(grid);
-                            printf("\n\n");
-                            printaGens(grid);
                         }
+                        
+                        if(bola->y < 0.9*HEIGHT){
+                            int i1 = ((bola->y + bola->vy)/54) ;
+                            int i2 = ((bola->x + bola->vx)/57);
+                            int index = i1*WT + i2;
+                            if(grid[index] == 1 && (distance(bola->x, bola->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) grid[index] = 0;
+                        }
+
+
 
                         bola->x = bola->x + bola->vx;
                         bola->y = bola->y + bola->vy;
@@ -164,8 +172,9 @@ int main() {
                     if(is_down && !balls_moving){
                         al_draw_line(bola->x, bola->y, x, y, MARROM_CLARO, 2);
                     }
-                    al_draw_bitmap(bola->img, bola->x - BALL_SIZE/2, bola->y - BALL_SIZE/2, 0);
                     al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
+                    desenhaBolas(game, grid);
+                    al_draw_bitmap(bola->img, bola->x - BALL_SIZE/2, bola->y - BALL_SIZE/2, 0);
                     al_flip_display();
                 }
             }

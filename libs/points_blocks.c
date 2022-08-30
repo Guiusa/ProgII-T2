@@ -1,4 +1,0 @@
-
-void aumentaNivel(int nivel){
-
-}
