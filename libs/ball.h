@@ -8,12 +8,13 @@
 
 struct ball_t {
     float x, y, vx, vy;
-    
-    ALLEGRO_BITMAP* img;
 };
 typedef struct ball_t ball;
 
 ball* criaBola(float x, float y);
+
+ball** maisVetorBolas(ball** bolas, ball* aux, int tam);
+ball** initVtBolas(ball* bola);
 
 float distance(float x1, float y1, int x2, int y2);
 float vector(int k2, float k1, float dist);

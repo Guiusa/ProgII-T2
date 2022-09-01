@@ -71,16 +71,20 @@ int main() {
     deinitWindow(menu);
 
     if(rodarJogo){
+        int tamBolas = 1;
         int* grid = criaGrid();
         newGen(grid);
 
         int* squares = criaSquares();
 
+        
         ball* bola;
         bola = criaBola(WIDTH/2, HEIGHT-BALL_SIZE/2); 
-        bola->img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
+        
+        ALLEGRO_BITMAP* img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
         game = initWindow(WIDTH, HEIGHT);
         
+        ball** vBolas = initVtBolas(bola);
         
         bool redraw;
         bool is_down = false;
@@ -117,9 +121,11 @@ int main() {
 
                 case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
                     if(!balls_moving && ev.mouse.y < 0.9*HEIGHT){
-                        dist = distance(bola->x, bola->y, ev.mouse.x, ev.mouse.y);
-                        bola->vx = 16*vector(ev.mouse.x, bola->x, dist);
-                        bola->vy = 16*vector(ev.mouse.y, bola->y, dist);
+                        dist = distance(vBolas[0]->x, vBolas[0]->y, ev.mouse.x, ev.mouse.y);
+                        for(int i = 0; i<tamBolas; i++){
+                            vBolas[i]->vx = 16*vector(ev.mouse.x, vBolas[i]->x, dist);
+                            vBolas[i]->vy = 16*vector(ev.mouse.y, vBolas[i]->y, dist);
+                        }
                         balls_moving = true;
                     }
                 
@@ -139,42 +145,52 @@ int main() {
                 if(al_is_event_queue_empty(game.event_queue)){
                     al_clear_to_color(PIXEL(0, 0, 0));
                     if(balls_moving){
-                        if(bola->x < BALL_SIZE/2 || bola->x > WIDTH-BALL_SIZE/2){
-                            bola->vx = -bola->vx;
-                            just_shoot = false;
-                        }
-                        if(bola->y < BALL_SIZE/2){
-                            bola->vy = -bola->vy;
-                            just_shoot = false;
-                        }
-                        if(bola->y + BALL_SIZE/2 > 0.9*HEIGHT && !just_shoot){
-                            balls_moving = false;
-                            bola->vx = 0.0;
-                            bola->vy = 0.0;
-                            bola->y = HEIGHT-BALL_SIZE/2;
-                            just_shoot = true;
-                            
-                            newGen(grid);
+                        for(int i = 0; i<tamBolas; i++){
+                            if(vBolas[i]->x < BALL_SIZE/2 || vBolas[i]->x > WIDTH-BALL_SIZE/2){
+                                vBolas[i]->vx = -vBolas[i]->vx;
+                                just_shoot = false;
+                            }
+                            if(vBolas[i]->y < BALL_SIZE/2){
+                                vBolas[i]->vy = -vBolas[i]->vy;
+                                just_shoot = false;
+                            }
+                            if(vBolas[i]->y + BALL_SIZE/2 > 0.9*HEIGHT && !just_shoot){
+                                balls_moving = false;
+                                vBolas[i]->vx = 0.0;
+                                vBolas[i]->vy = 0.0;
+                                vBolas[i]->y = HEIGHT-BALL_SIZE/2;
+                                just_shoot = true;
+                                
+                                newGen(grid);
+                            }
+
+                            if(vBolas[i]->y < 0.9*HEIGHT){
+                                int i1 = ((vBolas[i]->y + vBolas[i]->vy)/54) ;
+                                int i2 = ((vBolas[i]->x + vBolas[i]->vx)/57);
+                                int index = i1*WT + i2;
+                                if(grid[index] == 1 && (distance(vBolas[i]->x, vBolas[i]->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) {
+                                    grid[index] = 0;
+                                    ball* aux = criaBola(x, y);
+                                    vBolas = maisVetorBolas(vBolas, aux, tamBolas);
+                                    tamBolas++;
+                                }
+                            }
+                            vBolas[i]->x = vBolas[i]->x + vBolas[i]->vx;
+                            vBolas[i]->y = vBolas[i]->y + vBolas[i]->vy;
                         }
                         
-                        if(bola->y < 0.9*HEIGHT){
-                            int i1 = ((bola->y + bola->vy)/54) ;
-                            int i2 = ((bola->x + bola->vx)/57);
-                            int index = i1*WT + i2;
-                            if(grid[index] == 1 && (distance(bola->x, bola->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) grid[index] = 0;
-                        }
 
 
 
-                        bola->x = bola->x + bola->vx;
-                        bola->y = bola->y + bola->vy;
                     }
                     if(is_down && !balls_moving){
                         al_draw_line(bola->x, bola->y, x, y, MARROM_CLARO, 2);
                     }
                     al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
                     desenhaBolas(game, grid);
-                    al_draw_bitmap(bola->img, bola->x - BALL_SIZE/2, bola->y - BALL_SIZE/2, 0);
+                    for(int i=0; i<tamBolas; i++)
+                        al_draw_bitmap(img, vBolas[i]->x - BALL_SIZE/2, vBolas[i]->y - BALL_SIZE/2, 0);
+                    
                     al_flip_display();
                 }
             }
