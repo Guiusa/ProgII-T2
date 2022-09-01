@@ -32,13 +32,13 @@ int main() {
     ALLEGRO_BITMAP* record;
     
     menu = initWindow(WIDTH, HEIGHT);
-    fundo = createImg("imgsGame/fundoMenu.png", WIDTH, HEIGHT, menu);
-    play = createImg("imgsGame/botaoPlay.png", 640, 240, menu);
-    record = createImg("imgsGame/botaoRecord.png", 640, 240, menu);
+    fundo = createImg("imgsGame/fundoMenu.jpg", WIDTH, HEIGHT, menu);
+    play = createImg("imgsGame/botaoPlay.png", 512, 192, menu);
+    record = createImg("imgsGame/botaoRecord.png", 512, 192, menu);
 
     al_draw_bitmap(fundo, 0, 0, 0);
-    al_draw_bitmap(play, 80, 60, 0);
-    al_draw_bitmap(record, 80, 300, 0);
+    al_draw_bitmap(play, 144, 84, 0);
+    al_draw_bitmap(record, 144, 324, 0);
     al_flip_display();
     
     while(!sairMenu){
@@ -54,15 +54,14 @@ int main() {
                     sairMenu = true;    
                 break;
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-                if(ev.mouse.x >= 80 && ev.mouse.x <= 720){
-                    if(ev.mouse.y >= 60 && ev.mouse.y <= 300){
+                if(ev.mouse.x >= 144 && ev.mouse.x <= 656){
+                    if(ev.mouse.y >= 84 && ev.mouse.y <= 276){
                         rodarJogo = true;
                         sairMenu = true;
                     }
-                    else if(ev.mouse.y >= 300 && ev.mouse.y <= 540){
+                    else if(ev.mouse.y >= 324 && ev.mouse.y <= 516){
                         sairMenu = true;
                         rodarRecorde = true;
-                        printf("RECORDE\n");
                     }
                 }
                 break;
@@ -80,7 +79,8 @@ int main() {
         
         ball* bola;
         bola = criaBola(WIDTH/2, HEIGHT-BALL_SIZE/2); 
-        
+
+        ALLEGRO_BITMAP* fundoG = createImg("imgsGame/fundoGame.jpg", WIDTH, HEIGHT, menu);
         ALLEGRO_BITMAP* img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
         game = initWindow(WIDTH, HEIGHT);
         
@@ -144,6 +144,7 @@ int main() {
             if(redraw){
                 if(al_is_event_queue_empty(game.event_queue)){
                     al_clear_to_color(PIXEL(0, 0, 0));
+                    al_draw_bitmap(fundoG, 0, 0, 0);
                     if(balls_moving){
                         for(int i = 0; i<tamBolas; i++){
                             if(vBolas[i]->x < BALL_SIZE/2 || vBolas[i]->x > WIDTH-BALL_SIZE/2){
@@ -198,13 +199,11 @@ int main() {
     }
 
     else if(rodarRecorde){
-        int txtH, txtW;
         telaRecorde = initWindow(WIDTH, HEIGHT);
-        
-        ALLEGRO_BITMAP* txt = createTxt(60,"SEU RECORDE É:", &txtW, &txtH, telaRecorde);
+        ALLEGRO_BITMAP* fundoRec = createImg("imgsGame/fundoRecord.jpg", WIDTH, HEIGHT, telaRecorde);
+
     
-        al_draw_bitmap(fundo, 0, 0, 0);
-        al_draw_bitmap(txt, WIDTH/2 - txtW/2, HEIGHT/2 - txtH/2, 0);
+        al_draw_bitmap(fundoRec, 0, 0, 0);
         al_flip_display();
 
         while(rodarRecorde){
