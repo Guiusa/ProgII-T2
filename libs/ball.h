@@ -8,6 +8,7 @@
 
 struct ball_t {
     float x, y, vx, vy;
+    bool justShoot, ballsMoving;
 };
 typedef struct ball_t ball;
 
@@ -18,3 +19,5 @@ ball** initVtBolas(ball* bola);
 
 float distance(float x1, float y1, int x2, int y2);
 float vector(int k2, float k1, float dist);
+
+int todasPararam(ball** bolas, int tam);

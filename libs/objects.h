@@ -17,4 +17,4 @@ int* criaSquares();
 int newGen(int* grid);
 void printaGens(int* grid);
 
-void desenhaBolas(Window win, int* grid);
+void desenhaPontos(Window win, int* grid);

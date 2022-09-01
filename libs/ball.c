@@ -7,6 +7,8 @@ ball* criaBola(float x, float y){
     bola->y = y;
     bola->vx = 0.0;
     bola->vy = 0.0;
+    bola->justShoot = true;
+    bola->ballsMoving = false;
     return bola;
 }
 
@@ -37,4 +39,11 @@ ball** maisVetorBolas(ball** bolas, ball* aux, int tam){
     bolas = realloc(bolas, (tam+1)*sizeof(ball*));
     bolas[tam] = aux;
     return bolas;
+}
+
+int todasPararam(ball** bolas, int tam){
+    for(int i = 0; i < tam; i++)
+        if(bolas[i]->ballsMoving)
+            return 0;
+    return 1;
 }
