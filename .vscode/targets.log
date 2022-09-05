@@ -5,8 +5,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Thu Aug 18 23:01:43 2022
+# Make data base, printed on Sun Sep  4 20:16:53 2022
 
 # Variables
 
@@ -83,7 +84,7 @@ PATH = /home/guiusepe/.nvm/versions/node/v17.4.0/bin:/usr/local/sbin:/usr/local/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1095,unix/guiusepe-computer:/tmp/.ICE-unix/1095
+SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1121,unix/guiusepe-computer:/tmp/.ICE-unix/1121
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,11 +116,12 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1167
+SSH_AGENT_PID = 1212
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
 GTK_MODULES = gail:atk-bridge
+ 
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -133,7 +135,7 @@ VSCODE_CODE_CACHE_PATH = /home/guiusepe/.config/Code/CachedData/6d9b74a70ca9c773
 # environment
 LOGNAME = guiusepe
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 NVM_CD_FLAGS = 
 # automatic
@@ -225,11 +227,11 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # makefile (from 'makefile', line 5)
 LIBS = $(ALLEGRO) -lm
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/7afa1337_6e54_4c5a_b390_c78579dc94d2
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/d7dbd6fa_c007_42dd_aa02_41ed7dc6a0f6
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.1153
+GNOME_TERMINAL_SERVICE = :1.176
 # default
 SUFFIXES := 
 # environment
@@ -237,6 +239,7 @@ CHROME_DESKTOP = code-url-handler.desktop
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
+ 
 GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
@@ -247,9 +250,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 26650
+VSCODE_PID = 4631
 # variable set hash-table stats:
-# Load=119/1024=12%, Rehash=0, Collisions=13/152=9%
+# Load=119/1024=12%, Rehash=0, Collisions=13/147=9%
 
 # Pattern-specific Variable Values
 
@@ -257,13 +260,14 @@ VSCODE_PID = 26650
 
 # Directories
 
-# . (device 2054, inode 5030214): 18 files, no impossibilities.
+# libs (device 2054, inode 5031094): 8 files, 1 impossibilities.
+# . (device 2054, inode 5031074): 14 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 22 files, 1 impossibilities in 2 directories.
 
 # Implicit Rules
 
-%.o: %.c
+%.o: libs/%.c
 #  recipe to execute (from 'makefile', line 8):
 	gcc $(CFLAGS) -c $<
 
@@ -271,48 +275,52 @@ VSCODE_PID = 26650
 
 # Files
 
+# Not a target:
+libs/ball.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-09-04 10:57:54.131818682
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+libs/display.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-29 21:29:53.341221913
+ 
+#  File has been updated.
+#  Successfully updated.
+
+objects.o: libs/objects.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'objects'
+#  Last modified 2022-09-04 10:57:54.131818682
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 8):
+	gcc $(CFLAGS) -c $<
+
 all: ballz
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
-
-ballz.o: ballz.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'ballz'
- 
-#  Last modified 2022-08-18 22:36:35.270190195
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := ballz.o
-# automatic
-# % := 
-# automatic
-# * := ballz
-# automatic
-# + := ballz.c
-# automatic
-# | := 
-# automatic
-# < := ballz.c
-# automatic
-# ^ := ballz.c
-# automatic
-# ? := ballz.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  recipe to execute (from 'makefile', line 8):
-	gcc $(CFLAGS) -c $<
+#  Successfully updated.
 
 # Not a target:
-ball.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+ballz.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-09-04 14:28:54.020265586
+#  File has been updated.
+#  Successfully updated.
+
+ball.o: libs/ball.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'ball'
+#  Last modified 2022-09-04 10:57:57.635801092
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 8):
+	gcc $(CFLAGS) -c $<
 
 # makefile (from 'makefile', line 10)
 debug: CFLAGS += -g -D__DEBUG__
@@ -323,21 +331,19 @@ debug: ballz
 # variable set hash-table stats:
 # Load=1/32=3%, Rehash=0, Collisions=0/2=0%
 
-ballz: ballz.o display.o ball.o
+ballz: ballz.o display.o ball.o objects.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'ballz'
-#  Last modified 2022-08-18 22:40:15.901985034
+#  Last modified 2022-09-04 14:28:54.080264838
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 15):
 	gcc $(CFLAGS) -o $@ $^ $(LIBS)
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-18 22:40:31.685968786
+#  Last modified 2022-09-04 10:57:54.131818682
 #  File has been updated.
 #  Successfully updated.
 
@@ -357,9 +363,9 @@ purge: clean
 #  File has not been updated.
 
 # Not a target:
-ballz.c:
+libs/objects.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-18 22:53:22.068744685
+#  Last modified 2022-09-04 10:57:54.131818682
 #  File has been updated.
 #  Successfully updated.
 
@@ -371,26 +377,29 @@ clean:
 	@echo "Limpando sujeira ..."
 	@rm -f *% *.bak *~
 
-# Not a target:
-display.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+display.o: libs/display.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'display'
+#  Last modified 2022-09-04 10:57:57.599801272
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 8):
+	gcc $(CFLAGS) -c $<
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=3/34=9%
+# Load=15/1024=1%, Rehash=0, Collisions=3/46=7%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 29 / storage = 218 B / avg = 7 B
-# current buf: size = 8162 B / used = 218 B / count = 29 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 319 B / avg = 8 B
+# current buf: size = 8162 B / used = 319 B / count = 38 / avg = 8 B
 
-# strcache performance: lookups = 52 / hit rate = 44%
+# strcache performance: lookups = 67 / hit rate = 43%
 # hash-table stats:
-# Load=29/8192=0%, Rehash=0, Collisions=1/52=2%
-# Finished Make data base on Thu Aug 18 23:01:43 2022
+# Load=38/8192=0%, Rehash=0, Collisions=3/67=4%
+# Finished Make data base on Sun Sep  4 20:16:53 2022
 
  

@@ -1,8 +1,9 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/guiusepe/Desktop/git/ProgII-T2'
-gcc -I . -c ballz.c
-gcc -I . -c display.c
-gcc -I . -c ball.c
-gcc -I . -o ballz ballz.o display.o ball.o `pkg-config --libs allegro-5 allegro_image-5 allegro_primitives-5 allegro_dialog-5 allegro_font-5 allegro_ttf-5` -lm
+cc -I .   -c -o ballz.o ballz.c
+gcc -I . -c libs/display.c
+gcc -I . -c libs/ball.c
+gcc -I . -c libs/objects.c
+gcc -I . -o ballz ballz.o display.o ball.o objects.o `pkg-config --libs allegro-5 allegro_image-5 allegro_primitives-5 allegro_dialog-5 allegro_font-5 allegro_ttf-5` -lm
 make: Leaving directory '/home/guiusepe/Desktop/git/ProgII-T2'
  

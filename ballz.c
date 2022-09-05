@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //#include "libs/display.h"
 #include "libs/ball.h"
@@ -15,6 +16,7 @@
 #define BALL_SIZE 15
 
 int main() {
+    srand(time(NULL));
     al_init_primitives_addon();
     
     Window menu;
@@ -30,6 +32,7 @@ int main() {
     ALLEGRO_BITMAP* fundo; 
     ALLEGRO_BITMAP* play;
     ALLEGRO_BITMAP* record;
+
     
     menu = initWindow(WIDTH, HEIGHT);
     fundo = createImg("imgsGame/fundoMenu.jpg", WIDTH, HEIGHT, menu);
@@ -71,9 +74,10 @@ int main() {
 
     if(rodarJogo){
         int tamBolas = 1;
+        int timeStamp;
         int* grid = criaGrid();
         newGen(grid);
-
+        
         int* squares = criaSquares();
 
         
@@ -89,6 +93,9 @@ int main() {
         bool redraw;
         bool is_down = false;
         bool shoot = false;
+        bool first = true;
+
+        int xBalls;
         float x, y, dist;
 
         while(rodarJogo){
@@ -122,11 +129,15 @@ int main() {
                     if(!shoot && ev.mouse.y < 0.9*HEIGHT){
                         dist = distance(vBolas[0]->x, vBolas[0]->y, ev.mouse.x, ev.mouse.y);
                         for(int i = 0; i<tamBolas; i++){
+                            int counterAux = 1;
+                            bool timer = false;
                             vBolas[i]->vx = 16*vector(ev.mouse.x, vBolas[i]->x, dist);
                             vBolas[i]->vy = 16*vector(ev.mouse.y, vBolas[i]->y, dist);
                             vBolas[i]->justShoot = true;
                             vBolas[i]->ballsMoving = true;
                         }
+                        timeStamp = 0;
+                        first=true;
                         shoot = true;
                     }
                 
@@ -144,11 +155,14 @@ int main() {
 
             if(redraw){
                 if(al_is_event_queue_empty(game.event_queue)){
+                    if(time)
+                        timeStamp++;
                     al_clear_to_color(PIXEL(0, 0, 0));
                     al_draw_bitmap(fundoG, 0, 0, 0);
+                    int countBolas = 0;
                     for(int i = 0; i<tamBolas; i++){
                         if(vBolas[i]->ballsMoving){
-                            if(vBolas[i]->x < BALL_SIZE/2 || vBolas[i]->x > WIDTH-BALL_SIZE/2){
+                            if((vBolas[i]->x < BALL_SIZE/2 || vBolas[i]->x > WIDTH-BALL_SIZE/2) && vBolas[i]->y < 0.9*HEIGHT - BALL_SIZE/2){
                                 vBolas[i]->vx = -vBolas[i]->vx;
                                 vBolas[i]->justShoot = false;
                             }
@@ -157,6 +171,11 @@ int main() {
                                 vBolas[i]->justShoot = false;
                             }
                             if(vBolas[i]->y + BALL_SIZE/2 > 0.9*HEIGHT && !vBolas[i]->justShoot){
+                                if(first){
+                                    xBalls = vBolas[i]->x;
+                                    first = false;
+                                }
+                                vBolas[i]->x = xBalls;
                                 vBolas[i]->ballsMoving = false;
                                 vBolas[i]->vx = 0.0;
                                 vBolas[i]->vy = 0.0;
@@ -166,18 +185,24 @@ int main() {
                             if(todasPararam(vBolas, tamBolas)){
                                 shoot = false;
                                 newGen(grid);
-                            }
-                            if(vBolas[i]->y < 0.9*HEIGHT){
-                                int i1 = ((vBolas[i]->y + vBolas[i]->vy)/54) ;
-                                int i2 = ((vBolas[i]->x + vBolas[i]->vx)/57);
-                                int index = i1*WT + i2;
-                                if(grid[index] == 1 && (distance(vBolas[i]->x, vBolas[i]->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) {
-                                    grid[index] = 0;
-                                    ball* aux = criaBola(x, y);
+                                for(int i = 0; i< countBolas; i++){
+                                    ball* aux = criaBola(vBolas[i]->x, HEIGHT-BALL_SIZE/2);
                                     vBolas = maisVetorBolas(vBolas, aux, tamBolas);
                                     tamBolas++;
                                 }
                             }
+                            
+                            
+                            
+                            int i1 = ((vBolas[i]->y + vBolas[i]->vy)/54) ;
+                            int i2 = ((vBolas[i]->x + vBolas[i]->vx)/57);
+                            int index = i1*WT + i2;
+                            
+                            if(grid[index] == 1 && (distance(vBolas[i]->x, vBolas[i]->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) {
+                                grid[index] = 0;
+                                countBolas++;
+                            }
+                            
                             vBolas[i]->x = vBolas[i]->x + vBolas[i]->vx;
                             vBolas[i]->y = vBolas[i]->y + vBolas[i]->vy;
                         }
