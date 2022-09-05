@@ -8,7 +8,7 @@
 
 struct ball_t {
     float x, y, vx, vy;
-    bool justShoot, ballsMoving;
+    bool justShoot, ballsMoving, shootOthers;
 };
 typedef struct ball_t ball;
 
