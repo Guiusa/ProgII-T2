@@ -77,7 +77,6 @@ int main() {
         int timeStamp;
         int* grid = criaGrid();
         newGen(grid);
-        
         int* squares = criaSquares();
 
         
@@ -202,6 +201,17 @@ int main() {
                                 grid[index] = 0;
                                 countBolas++;
                             }
+                            else if(grid[index] == 2){
+                                if((vBolas[i]->x + vBolas[i]->vx) >= ((i2+1)*3+(i2*54)) && (vBolas[i]->x + vBolas[i]->vx) <= ((i2+1)*3+((i2+1)*54))){
+                                    vBolas[i]->vx = -vBolas[i]->vx;
+                                    vBolas[i]->justShoot = false;
+                                }
+                                if((vBolas[i]->y + vBolas[i]->vy) >= (i1*54) && (vBolas[i]->y + vBolas[i]->vy) <= (i1+1)*54){
+                                    vBolas[i]->vy = -vBolas[i]->vy;
+                                    vBolas[i]->justShoot = false;
+                                }
+                            }
+                            
                             if(vBolas[i]->shootOthers){
                                 if(timeStamp >= i*10-1 && timeStamp <=i*10+1){
                                     vBolas[i]->x = vBolas[i]->x + vBolas[i]->vx;

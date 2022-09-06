@@ -30,7 +30,7 @@ void geracaoSquares(int* gridLine){
     int* aux = gridLine;
     for(int j = 0; j<WT; j++){
         int p = random()%100;
-        if(p>50)
+        if(p>60)
             aux[WT+j] = 2;
     }
 }
@@ -63,9 +63,14 @@ void printaGens(int* grid){
 
 
 void desenhaPontos(Window win, int* grid){
-    for(int i = 0; i<HT; i++) for(int j = 0; j<WT; j++)
+    for(int i = 0; i<HT; i++) for(int j = 0; j<WT; j++){
         if(grid[(i*WT) + j] == 1){
             al_draw_filled_circle(((j+1)*3+((j+0.5)*54)), (i+0.5)*54, 13.5, VERMELHO_PEDRO);
         }
-
+        else if(grid[(i*WT) + j] == 2){
+            int x = ((j+1)*3+(j*54));
+            int y = i*54;
+            al_draw_filled_rectangle(x, y, x+54, y+54, VERMELHO_PEDRO);
+        }
+    }
 }
