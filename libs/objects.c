@@ -65,7 +65,7 @@ void printaGens(int* grid){
 void desenhaPontos(Window win, int* grid){
     for(int i = 0; i<HT; i++) for(int j = 0; j<WT; j++)
         if(grid[(i*WT) + j] == 1){
-            al_draw_filled_circle(((j+1)*3+((j+0.5)*54)), (i+0.5)*54, 13.5, AMARELO);
+            al_draw_filled_circle(((j+1)*3+((j+0.5)*54)), (i+0.5)*54, 13.5, VERMELHO_PEDRO);
         }
 
 }

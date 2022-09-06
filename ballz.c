@@ -216,8 +216,8 @@ int main() {
                         }
                     }
                     if(is_down && !shoot)
-                        al_draw_line(bola->x, bola->y, x, y, MARROM_CLARO, 2);
-                    al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERDE_ESCURO, 1);
+                        al_draw_line(bola->x, bola->y, x, y, VERMELHO_PEDRO, 2);
+                    al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERMELHO_PEDRO, 1);
                     desenhaPontos(game, grid);
                     for(int i=0; i<tamBolas; i++)
                         al_draw_bitmap(img, vBolas[i]->x - BALL_SIZE/2, vBolas[i]->y - BALL_SIZE/2, 0);
