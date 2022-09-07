@@ -5,6 +5,7 @@
 #include <allegro5/allegro_native_dialog.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "objects.h"
 
 struct ball_t {
     float x, y, vx, vy;
@@ -21,3 +22,5 @@ float distance(float x1, float y1, int x2, int y2);
 float vector(int k2, float k1, float dist);
 
 int todasPararam(ball** bolas, int tam);
+
+void printaQuant(ALLEGRO_FONT* font, int q, Window win, int x);

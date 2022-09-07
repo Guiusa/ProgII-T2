@@ -47,3 +47,10 @@ int todasPararam(ball** bolas, int tam){
             return 0;
     return 1;
 }
+
+void printaQuant(ALLEGRO_FONT* font, int q, Window win, int x){
+    char quant[3];
+    sprintf(quant, "%d", q);
+    int xC = (x >= 90) ? x - 15 : x + 15;
+    al_draw_text(font, VERMELHO_PEDRO, xC, 565, ALLEGRO_ALIGN_CENTRE, quant);
+}

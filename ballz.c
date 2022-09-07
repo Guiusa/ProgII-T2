@@ -3,9 +3,8 @@
 #include <string.h>
 #include <time.h>
 
-//#include "libs/display.h"
 #include "libs/ball.h"
-#include "libs/objects.h"
+//#include "libs/objects.h"
 
 #include <math.h>
 
@@ -16,6 +15,7 @@
 #define BALL_SIZE 15
 
 int main() {
+    
     srand(time(NULL));
     al_init_primitives_addon();
     
@@ -73,11 +73,12 @@ int main() {
     deinitWindow(menu);
 
     if(rodarJogo){
+        ALLEGRO_FONT* font = al_load_ttf_font("/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf", 24, 1);
         int tamBolas = 1;
         int timeStamp;
         int* grid = criaGrid();
-        newGen(grid);
         int* squares = criaSquares();
+        newGen(grid, squares);
 
         
         ball* bola;
@@ -93,8 +94,9 @@ int main() {
         bool is_down = false;
         bool shoot = false;
         bool first = true;
+        bool fim = false;
 
-        int xBalls;
+        int xBalls = WIDTH/2;
         int countBolas;
         float x, y, dist;
 
@@ -105,6 +107,12 @@ int main() {
             al_wait_for_event(game.event_queue, &ev);
         
             switch(ev.type){
+                case ALLEGRO_EVENT_KEY_UP:
+                    if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+                        deinitWindow(game);
+                        rodarJogo = false;
+                    }
+                    break;
                 case ALLEGRO_EVENT_TIMER:
                     redraw = true;
                     timeStamp++;
@@ -115,12 +123,6 @@ int main() {
                     deinitWindow(game);
                     break;
 
-                case ALLEGRO_EVENT_KEY_UP:
-                    if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
-                        deinitWindow(game);
-                        rodarJogo = false;
-                    }
-                    break;
 
                 case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                     is_down = true;
@@ -183,7 +185,8 @@ int main() {
                             }
                             if(todasPararam(vBolas, tamBolas)){
                                 shoot = false;
-                                newGen(grid);
+                                if(newGen(grid, squares))
+                                    fim = true;
                                 for(int i = 0; i<countBolas; i++){
                                     ball* aux = criaBola(vBolas[i]->x, HEIGHT-BALL_SIZE/2);
                                     vBolas = maisVetorBolas(vBolas, aux, tamBolas);
@@ -193,8 +196,8 @@ int main() {
                             
                             
                             
-                            int i1 = ((vBolas[i]->y + vBolas[i]->vy)/54) ;
-                            int i2 = ((vBolas[i]->x + vBolas[i]->vx)/57);
+                            int i1 = ((vBolas[i]->y + (vBolas[i]->vy))/54)  ;
+                            int i2 = ((vBolas[i]->x + (vBolas[i]->vx))/57);
                             int index = i1*WT + i2;
                             
                             if(grid[index] == 1 && (distance(vBolas[i]->x, vBolas[i]->y, ((i2+1)*3+((i2+0.5)*54)), (i1+0.5)*54)) < 13.5) {
@@ -202,14 +205,18 @@ int main() {
                                 countBolas++;
                             }
                             else if(grid[index] == 2){
-                                if((vBolas[i]->x + vBolas[i]->vx) >= ((i2+1)*3+(i2*54)) && (vBolas[i]->x + vBolas[i]->vx) <= ((i2+1)*3+((i2+1)*54))){
+                                if(vBolas[i]->x < (i2+1)*3+(i2*54) || (vBolas[i]->x)  > ((i2+1)*3+((i2+1)*54)))
                                     vBolas[i]->vx = -vBolas[i]->vx;
-                                    vBolas[i]->justShoot = false;
-                                }
-                                if((vBolas[i]->y + vBolas[i]->vy) >= (i1*54) && (vBolas[i]->y + vBolas[i]->vy) <= (i1+1)*54){
+                                if(vBolas[i]->y < (i1*54) || vBolas[i]->y > (i1+1)*54)
                                     vBolas[i]->vy = -vBolas[i]->vy;
-                                    vBolas[i]->justShoot = false;
+                                vBolas[i]->justShoot = false;
+
+                                if(squares[index] == 1){
+                                    squares[index] = 0;
+                                    grid[index] = 0;
                                 }
+                                else
+                                    squares[index]--;             
                             }
                             
                             if(vBolas[i]->shootOthers){
@@ -228,11 +235,16 @@ int main() {
                     if(is_down && !shoot)
                         al_draw_line(bola->x, bola->y, x, y, VERMELHO_PEDRO, 2);
                     al_draw_line(0, 0.9*HEIGHT, WIDTH, 0.9*HEIGHT, VERMELHO_PEDRO, 1);
-                    desenhaPontos(game, grid);
+                    desenhaPontos(game, grid, squares, font);
                     for(int i=0; i<tamBolas; i++)
                         al_draw_bitmap(img, vBolas[i]->x - BALL_SIZE/2, vBolas[i]->y - BALL_SIZE/2, 0);
-                    
+                    printaQuant(font, tamBolas, game, xBalls);
                     al_flip_display();
+                    if(fim){
+                        al_clear_to_color(PIXEL(0, 0, 0));
+                        deinitWindow(game);
+                        rodarJogo = false;
+                    }
                 }
             }
         }

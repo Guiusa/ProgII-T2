@@ -21,7 +21,7 @@ Window initWindow(int widt, int height);
 void deinitWindow(Window win);
 
 ALLEGRO_BITMAP* createImg(char* name, int width, int height, Window win);
-ALLEGRO_BITMAP* createTxt(int size, char* texto, int* width, int* height, Window win);
+ALLEGRO_BITMAP* createTxt(int size, char* texto, Window win);
 
 #define VERMELHO_PEDRO PIXEL(228, 72, 78)
 #define MARROM_ESCURO PIXEL(172,116,31)
