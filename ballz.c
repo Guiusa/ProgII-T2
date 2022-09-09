@@ -76,9 +76,10 @@ int main() {
         ALLEGRO_FONT* font = al_load_ttf_font("/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf", 24, 1);
         int tamBolas = 1;
         int timeStamp;
+        int level = 1;
         int* grid = criaGrid();
         int* squares = criaSquares();
-        newGen(grid, squares);
+        newGen(grid, squares, level);
 
         
         ball* bola;
@@ -185,8 +186,9 @@ int main() {
                             }
                             if(todasPararam(vBolas, tamBolas)){
                                 shoot = false;
-                                if(newGen(grid, squares))
+                                if(newGen(grid, squares, level))
                                     fim = true;
+                                level++;
                                 for(int i = 0; i<countBolas; i++){
                                     ball* aux = criaBola(vBolas[i]->x, HEIGHT-BALL_SIZE/2);
                                     vBolas = maisVetorBolas(vBolas, aux, tamBolas);
@@ -239,11 +241,13 @@ int main() {
                     for(int i=0; i<tamBolas; i++)
                         al_draw_bitmap(img, vBolas[i]->x - BALL_SIZE/2, vBolas[i]->y - BALL_SIZE/2, 0);
                     printaQuant(font, tamBolas, game, xBalls);
+                    printaLevel(font, level, game);
                     al_flip_display();
                     if(fim){
                         al_clear_to_color(PIXEL(0, 0, 0));
                         deinitWindow(game);
                         rodarJogo = false;
+                        checarRecord(level);
                     }
                 }
             }

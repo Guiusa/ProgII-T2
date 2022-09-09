@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'ballz.o', needed by 'ballz'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Sep  7 16:01:29 2022
+# Make data base, printed on Fri Sep  9 16:57:59 2022
 
 # Variables
 
@@ -25,7 +27,6 @@ XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
 # environment
- 
 NVM_INC = /home/guiusepe/.nvm/versions/node/v17.4.0/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -84,7 +85,7 @@ PATH = /home/guiusepe/.nvm/versions/node/v17.4.0/bin:/usr/local/sbin:/usr/local/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1128,unix/guiusepe-computer:/tmp/.ICE-unix/1128
+SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1114,unix/guiusepe-computer:/tmp/.ICE-unix/1114
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -116,7 +117,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1198
+SSH_AGENT_PID = 1186
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -185,7 +186,6 @@ LANGUAGE = en_US
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-6e9bdea1-1.70.1-main.sock
- 
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -203,7 +203,7 @@ LC_PAPER = pt_BR.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # environment
-DESKTOP_AUTOSTART_ID = 10a6450ddaa716c260166257719258368800000011280008
+DESKTOP_AUTOSTART_ID = 10afe67c22ba101041166273087463982200000011140008
 # environment
 DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
 # default
@@ -221,11 +221,11 @@ LC_ALL = C
 # makefile (from 'makefile', line 5)
 LIBS = $(ALLEGRO) -lm
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/1d68fdef_42a6_4f48_b87d_5ab00ab1668d
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/93c09d15_f0eb_4428_b602_e72776fd0e47
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.90
+GNOME_TERMINAL_SERVICE = :1.1070
 # default
 SUFFIXES := 
 # environment
@@ -243,7 +243,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 2307
+VSCODE_PID = 22668
 # variable set hash-table stats:
 # Load=116/1024=11%, Rehash=0, Collisions=12/144=8%
 
@@ -254,9 +254,9 @@ VSCODE_PID = 2307
 # Directories
 
 # libs (device 2054, inode 5031094): 8 files, 1 impossibilities.
-# . (device 2054, inode 5031074): 14 files, no impossibilities.
+# . (device 2054, inode 5031074): 9 files, no impossibilities.
 
-# 22 files, 1 impossibilities in 2 directories.
+# 17 files, 1 impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -269,51 +269,29 @@ VSCODE_PID = 2307
 # Files
 
 # Not a target:
-libs/ball.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-09-04 10:57:54.131818682
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-libs/display.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-09-07 12:58:24.647333901
-#  File has been updated.
-#  Successfully updated.
-
-objects.o: libs/objects.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'objects'
-#  Last modified 2022-09-07 15:48:56.883834558
-#  File has been updated.
- 
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 8):
-	gcc $(CFLAGS) -c $<
+objects.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 all: ballz
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
-#  Successfully updated.
+#  File has not been updated.
 
 # Not a target:
 ballz.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-07 15:48:00.995823677
-#  File has been updated.
-#  Successfully updated.
+#  File does not exist.
+#  File has not been updated.
+ 
 
-ball.o: libs/ball.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'ball'
-#  Last modified 2022-09-06 19:21:29.447928566
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 8):
-	gcc $(CFLAGS) -c $<
+# Not a target:
+ball.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # makefile (from 'makefile', line 10)
 debug: CFLAGS += -g -D__DEBUG__
@@ -327,9 +305,8 @@ debug: ballz
 ballz: ballz.o display.o ball.o objects.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'ballz'
-#  Last modified 2022-09-07 15:48:56.959834561
-#  File has been updated.
-#  Successfully updated.
+#  File does not exist.
+#  File has not been updated.
 #  recipe to execute (from 'makefile', line 15):
 	gcc $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -355,14 +332,6 @@ purge: clean
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-libs/objects.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-09-07 15:48:55.39583449
-#  File has been updated.
-#  Successfully updated.
- 
-
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -371,29 +340,26 @@ clean:
 	@echo "Limpando sujeira ..."
 	@rm -f *% *.bak *~
 
-display.o: libs/display.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'display'
-#  Last modified 2022-09-07 12:59:53.088787879
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 8):
-	gcc $(CFLAGS) -c $<
+# Not a target:
+display.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=3/46=7%
+# Load=12/1024=1%, Rehash=0, Collisions=3/34=9%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 38 / storage = 319 B / avg = 8 B
-# current buf: size = 8162 B / used = 319 B / count = 38 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 32 / storage = 256 B / avg = 8 B
+# current buf: size = 8162 B / used = 256 B / count = 32 / avg = 8 B
 
-# strcache performance: lookups = 67 / hit rate = 43%
+# strcache performance: lookups = 53 / hit rate = 39%
 # hash-table stats:
-# Load=38/8192=0%, Rehash=0, Collisions=3/67=4%
-# Finished Make data base on Wed Sep  7 16:01:29 2022
+# Load=32/8192=0%, Rehash=0, Collisions=2/53=4%
+# Finished Make data base on Fri Sep  9 16:57:59 2022
 
  

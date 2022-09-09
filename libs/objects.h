@@ -14,7 +14,10 @@
 int* criaGrid();
 int* criaSquares();
 
-int newGen(int* grid, int* squares);
+int newGen(int* grid, int* squares, int lvl);
 void printaGens(int* grid);
 
 void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font);
+void printaLevel(ALLEGRO_FONT* font, int q, Window win);
+
+int checarRecord(int lvl);

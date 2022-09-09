@@ -26,13 +26,14 @@ void geracaoPontos(int* gridLine){
     } 
 }
 
-void geracaoSquares(int* gridLine, int* squares){
+void geracaoSquares(int* gridLine, int* squares, int lvl){
     int* aux = gridLine;
+
     for(int j = 0; j<WT; j++){
         int p = random()%100;
         if(p>60){
             aux[WT+j] = 2;
-            squares[WT+j] = (random()%10) + 1;
+            squares[WT+j] = (random()%(lvl+1)) + 1;
         }
     }
 }
@@ -44,7 +45,7 @@ int checaFim(int* gridLine){
     return 0;
 }
 
-int newGen(int* grid, int* squares){
+int newGen(int* grid, int* squares, int lvl){
     for(int i = HT-1; i>0; i--) for(int j = 0; j<WT; j++){
         grid[(i*WT) + j] = grid[((i-1)*WT) + j];
         squares[(i*WT) + j] = squares[((i-1)*WT) + j];
@@ -54,7 +55,7 @@ int newGen(int* grid, int* squares){
         squares[j] = 0;
     } 
     
-    geracaoSquares(grid, squares);
+    geracaoSquares(grid, squares, lvl);
     geracaoPontos(grid);
 
     return checaFim(grid);    
@@ -82,5 +83,22 @@ void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font){
             al_draw_filled_rectangle(x, y, x+54, y+54, VERMELHO_PEDRO);
             al_draw_text(font, PIXEL(0, 0, 0), x+27, y+15, ALLEGRO_ALIGN_CENTRE, vida);
         }
+    }
+}
+void printaLevel(ALLEGRO_FONT* font, int q, Window win){
+    char quant[3];
+    sprintf(quant, "%d", q);
+    al_draw_text(font, VERMELHO_PEDRO, 750, 550, ALLEGRO_ALIGN_CENTRE, "LEVEL:");
+    al_draw_text(font, VERMELHO_PEDRO, 750, 570, ALLEGRO_ALIGN_CENTRE, quant);
+}
+
+int checarRecord(int lvl){
+    FILE* file = fopen(".rcd", "r+");
+    int aux;
+    fscanf(file, "%d", &aux);
+    printf("%d\n", aux);
+    if(lvl > aux || aux > 20000){
+        fseek(file, 0, SEEK_SET);
+        fprintf(file, "%d", lvl);
     }
 }
