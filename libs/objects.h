@@ -17,7 +17,8 @@ int* criaSquares();
 int newGen(int* grid, int* squares, int lvl);
 void printaGens(int* grid);
 
-void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font);
+void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font, ALLEGRO_BITMAP* tijolo, ALLEGRO_BITMAP* ponto);
 void printaLevel(ALLEGRO_FONT* font, int q, Window win);
 
 int checarRecord(int lvl);
+void imgsRecorde(ALLEGRO_BITMAP** imgs);

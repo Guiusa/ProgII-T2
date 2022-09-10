@@ -1,5 +1,6 @@
 #include "objects.h"
 #include "allegro5/allegro_primitives.h"
+#include <math.h>
 
 int* criaGrid(){
     int* fullGrid = malloc(WT * HT * sizeof(int));
@@ -33,14 +34,14 @@ void geracaoSquares(int* gridLine, int* squares, int lvl){
         int p = random()%100;
         if(p>60){
             aux[WT+j] = 2;
-            squares[WT+j] = (random()%(lvl+1)) + 1;
+            squares[WT+j] = (random()%(lvl)) + lvl;
         }
     }
 }
 
 int checaFim(int* gridLine){
     for(int j = 0; j < WT; j++)
-        if(gridLine[j + (HT-1)*WT] != 0)
+        if(gridLine[j + (HT-1)*WT] == 2)
             return 1;
     return 0;
 }
@@ -70,21 +71,22 @@ void printaGens(int* grid){
 // 1 for points, 2 for squares and 0 for neither one
 
 
-void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font){
+void desenhaPontos(Window win, int* grid, int* squares, ALLEGRO_FONT* font, ALLEGRO_BITMAP* tijolo, ALLEGRO_BITMAP* ponto){
     for(int i = 0; i<HT; i++) for(int j = 0; j<WT; j++){
         if(grid[(i*WT) + j] == 1){
-            al_draw_filled_circle(((j+1)*3+((j+0.5)*54)), (i+0.5)*54, 13.5, VERMELHO_PEDRO);
+            al_draw_bitmap(ponto, ((j+1)*3+((j+0.5)*54) - 14), ((i+0.5)*54)-14, 0);
         }
         else if(grid[(i*WT) + j] == 2){
             char vida[3];
             sprintf(vida, "%d", squares[(i*WT) + j]);
             int x = ((j+1)*3+(j*54));
             int y = i*54;
-            al_draw_filled_rectangle(x, y, x+54, y+54, VERMELHO_PEDRO);
-            al_draw_text(font, PIXEL(0, 0, 0), x+27, y+15, ALLEGRO_ALIGN_CENTRE, vida);
+            al_draw_bitmap(tijolo, x, y, 0);
+            al_draw_text(font, VERMELHO_PEDRO, x+27, y+15, ALLEGRO_ALIGN_CENTRE, vida);
         }
     }
 }
+
 void printaLevel(ALLEGRO_FONT* font, int q, Window win){
     char quant[3];
     sprintf(quant, "%d", q);
@@ -96,9 +98,26 @@ int checarRecord(int lvl){
     FILE* file = fopen(".rcd", "r+");
     int aux;
     fscanf(file, "%d", &aux);
-    printf("%d\n", aux);
     if(lvl > aux || aux > 20000){
         fseek(file, 0, SEEK_SET);
         fprintf(file, "%d", lvl);
     }
+    fclose(file);
+}
+
+void imgsRecorde(ALLEGRO_BITMAP** imgs){
+    FILE* file = fopen(".rcd", "r");
+    int total, uni, dez, cen;
+    fscanf(file, "%d", &total);
+    uni = total%10;
+    total = floor(total/10);
+    dez = total%10;
+    total = floor(total/10);
+    cen = total;
+
+    al_draw_bitmap(imgs[cen], 256, 175, 0);
+    al_draw_bitmap(imgs[dez], 352, 175, 0);
+    al_draw_bitmap(imgs[uni], 448, 175, 0);
+
+    fclose(file);
 }

@@ -8,7 +8,7 @@ make: *** No rule to make target 'ballz.o', needed by 'ballz'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Sep  9 16:57:59 2022
+# Make data base, printed on Sat Sep 10 10:29:32 2022
 
 # Variables
 
@@ -85,7 +85,7 @@ PATH = /home/guiusepe/.nvm/versions/node/v17.4.0/bin:/usr/local/sbin:/usr/local/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1114,unix/guiusepe-computer:/tmp/.ICE-unix/1114
+SESSION_MANAGER = local/guiusepe-computer:@/tmp/.ICE-unix/1117,unix/guiusepe-computer:/tmp/.ICE-unix/1117
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -117,7 +117,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1186
+SSH_AGENT_PID = 1191
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -203,7 +203,7 @@ LC_PAPER = pt_BR.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # environment
-DESKTOP_AUTOSTART_ID = 10afe67c22ba101041166273087463982200000011140008
+DESKTOP_AUTOSTART_ID = 10629b57a08f7043f8166281637960749400000011170008
 # environment
 DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
 # default
@@ -221,11 +221,11 @@ LC_ALL = C
 # makefile (from 'makefile', line 5)
 LIBS = $(ALLEGRO) -lm
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/93c09d15_f0eb_4428_b602_e72776fd0e47
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/875b677a_be1e_4225_a8e1_c8493468f20f
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.1070
+GNOME_TERMINAL_SERVICE = :1.101
 # default
 SUFFIXES := 
 # environment
@@ -243,7 +243,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 22668
+VSCODE_PID = 2472
 # variable set hash-table stats:
 # Load=116/1024=11%, Rehash=0, Collisions=12/144=8%
 
@@ -254,9 +254,10 @@ VSCODE_PID = 22668
 # Directories
 
 # libs (device 2054, inode 5031094): 8 files, 1 impossibilities.
-# . (device 2054, inode 5031074): 9 files, no impossibilities.
+# . (device 2054, inode 5031074): 10 files, no impossibilities.
 
-# 17 files, 1 impossibilities in 2 directories.
+# 18 files, 1 impossibilities in 2 directories.
+ 
 
 # Implicit Rules
 
@@ -285,7 +286,6 @@ ballz.o:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
- 
 
 # Not a target:
 ball.o:
@@ -354,12 +354,12 @@ display.o:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 32 / storage = 256 B / avg = 8 B
-# current buf: size = 8162 B / used = 256 B / count = 32 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 33 / storage = 261 B / avg = 7 B
+# current buf: size = 8162 B / used = 261 B / count = 33 / avg = 7 B
 
-# strcache performance: lookups = 53 / hit rate = 39%
+# strcache performance: lookups = 54 / hit rate = 38%
 # hash-table stats:
-# Load=32/8192=0%, Rehash=0, Collisions=2/53=4%
-# Finished Make data base on Fri Sep  9 16:57:59 2022
+# Load=33/8192=0%, Rehash=0, Collisions=2/54=4%
+# Finished Make data base on Sat Sep 10 10:29:32 2022
 
  
