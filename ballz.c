@@ -96,6 +96,8 @@ int main() {
             ALLEGRO_BITMAP* img = createImg("imgsGame/ball.png", BALL_SIZE, BALL_SIZE, game);
             ALLEGRO_BITMAP* tijolo = createImg("imgsGame/tijolo.png", 54, 54, game);
             ALLEGRO_BITMAP* ponto = createImg("imgsGame/ponto.png", 27, 26, game);
+            ALLEGRO_BITMAP* cursor = createImg("imgsGame/cursor.png", 15, 15, game);
+            al_hide_mouse_cursor(game.display);
             
             ball** vBolas = initVtBolas(bola);
             
@@ -120,6 +122,9 @@ int main() {
                         if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
                             deinitWindow(game);
                             rodarJogo = false;
+                        }
+                        if(ev.keyboard.keycode == ALLEGRO_KEY_H){
+                            al_show_native_message_box(game.display, "BALLZ", "Instruções", "Como jogar:\n Clique com o botão esquerdo e mire a bolinha, solte para atirar", NULL, 0);
                         }
                         break;
                     case ALLEGRO_EVENT_TIMER:
@@ -173,15 +178,15 @@ int main() {
                         al_draw_bitmap(fundoG, 0, 0, 0);
                         for(int i = 0; i<tamBolas; i++){
                             if(vBolas[i]->ballsMoving){
-                                if((vBolas[i]->x < BALL_SIZE/2 || vBolas[i]->x > WIDTH-BALL_SIZE/2) && vBolas[i]->y < 0.9*HEIGHT - BALL_SIZE/2){
+                                if((vBolas[i]->x + vBolas[i]->vx < BALL_SIZE/2 || vBolas[i]->x + vBolas[i]->vx > WIDTH-BALL_SIZE/2) && vBolas[i]->y < 0.9*HEIGHT - BALL_SIZE/2){
                                     vBolas[i]->vx = -vBolas[i]->vx;
                                     vBolas[i]->justShoot = false;
                                 }
-                                if(vBolas[i]->y < BALL_SIZE/2){
+                                if(vBolas[i]->y + vBolas[i]->vy < BALL_SIZE/2){
                                     vBolas[i]->vy = -vBolas[i]->vy;
                                     vBolas[i]->justShoot = false;
                                 }
-                                if(vBolas[i]->y + BALL_SIZE/2 > 0.9*HEIGHT && !vBolas[i]->justShoot){
+                                if(vBolas[i]->y + vBolas[i]->vy + BALL_SIZE/2 > 0.9*HEIGHT && !vBolas[i]->justShoot){
                                     if(first){
                                         xBalls = vBolas[i]->x;
                                         first = false;
@@ -256,6 +261,7 @@ int main() {
                             al_draw_bitmap(img, vBolas[i]->x - BALL_SIZE/2, vBolas[i]->y - BALL_SIZE/2, 0);
                         printaQuant(font, tamBolas, game, xBalls);
                         printaLevel(font, level, game);
+                        al_draw_bitmap(cursor, x, y, 0);
                         al_flip_display();
                         if(fim){
                             al_clear_to_color(PIXEL(0, 0, 0));
@@ -311,4 +317,14 @@ int main() {
         al_destroy_bitmap(play);
         al_destroy_bitmap(record);
     }
+    char* red="\033[0;31m";
+    char* bred="\033[1;31m";
+    char* cyan="\033[0;36m";
+    char* bwhite="\033[1;37m";
+
+    printf("\n\n\n%s            CRÉDITOS FINAIS:%s\n            ~~~~~~~~~~~~~~~~\n", bred, cyan);
+    printf("%sDesenvolvimento: %sGuiusepe Oneda Dal Pai\n", red, bwhite);
+    printf("%s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n", cyan);
+    printf("%s      Design: %sPedro Lucca Pereira\n", red, bwhite);
+    printf("%s      ~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n", cyan);
 }
