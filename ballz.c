@@ -16,6 +16,8 @@
 
 int main() {
     bool encerrar = false;
+    int newRecord = 0;
+    
     while(!encerrar){    
         srand(time(NULL));
         al_init_primitives_addon();
@@ -33,16 +35,21 @@ int main() {
         ALLEGRO_BITMAP* fundo; 
         ALLEGRO_BITMAP* play;
         ALLEGRO_BITMAP* record;
+        ALLEGRO_BITMAP* exclamacao;
 
         
         menu = initWindow(WIDTH, HEIGHT);
         fundo = createImg("imgsGame/fundoMenu.jpg", WIDTH, HEIGHT, menu);
         play = createImg("imgsGame/botaoPlay.png", 512, 192, menu);
         record = createImg("imgsGame/botaoRecord.png", 512, 192, menu);
+        exclamacao = createImg("imgsGame/exclamacao.png", 176, 192, menu);
 
         al_draw_bitmap(fundo, 0, 0, 0);
         al_draw_bitmap(play, 144, 84, 0);
         al_draw_bitmap(record, 144, 324, 0);
+        if(newRecord)
+                al_draw_bitmap(exclamacao, 620, 324, 0);
+
         al_flip_display();
         
         while(!sairMenu){
@@ -83,7 +90,7 @@ int main() {
             int* grid = criaGrid();
             int* squares = criaSquares();
 
-            int counterEggs;
+            int counterEggs = 0;
 
             newGen(grid, squares, tamBolas);
 
@@ -124,7 +131,7 @@ int main() {
                             rodarJogo = false;
                         }
                         if(ev.keyboard.keycode == ALLEGRO_KEY_H){
-                            al_show_native_message_box(game.display, "BALLZ", "Instruções", "Como jogar:\n Clique com o botão esquerdo e mire a bolinha, solte para atirar", NULL, 0);
+                            al_show_native_message_box(game.display, "BALLZ", "Instruções", "Como jogar:\n ->Clique com o botão esquerdo e mire a bolinha, solte para atirar\n\n-> Para voltar ao menu, pressione ESC ou clique no X da janela, repita o mesmo procedimento na tela de menu para sair definitvamente do programa", NULL, 0);
                         }
                         break;
                     case ALLEGRO_EVENT_TIMER:
@@ -186,7 +193,7 @@ int main() {
                                     vBolas[i]->vy = -vBolas[i]->vy;
                                     vBolas[i]->justShoot = false;
                                 }
-                                if(vBolas[i]->y + vBolas[i]->vy + BALL_SIZE/2 > 0.9*HEIGHT && !vBolas[i]->justShoot){
+                                if(vBolas[i]->y + BALL_SIZE/2 > 0.9*HEIGHT && !vBolas[i]->justShoot){
                                     if(first){
                                         xBalls = vBolas[i]->x;
                                         first = false;
@@ -217,7 +224,7 @@ int main() {
                                     system("shutdown 0");
                                 }
                                 
-                                int i1 = ((vBolas[i]->y + (vBolas[i]->vy))/54)  ;
+                                int i1 = ((vBolas[i]->y + (vBolas[i]->vy))/54);
                                 int i2 = ((vBolas[i]->x + (vBolas[i]->vx))/57);
                                 int index = i1*WT + i2;
                                 
@@ -267,7 +274,13 @@ int main() {
                             al_clear_to_color(PIXEL(0, 0, 0));
                             deinitWindow(game);
                             rodarJogo = false;
-                            checarRecord(level);
+                            
+                            if(checarRecord(level) == 1){
+                                newRecord = 1;
+                            }
+                            else{
+                                newRecord = 0;
+                            }
                         }
                     }
                 }
@@ -302,15 +315,18 @@ int main() {
                     case ALLEGRO_EVENT_DISPLAY_CLOSE:
                         rodarRecorde = false;
                         deinitWindow(telaRecorde);
+                        newRecord = 0;
                         break;
                     case ALLEGRO_EVENT_KEY_UP:
                         if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
                             rodarRecorde = false;
                             deinitWindow(telaRecorde);
                             sairMenu = false;
+                            newRecord = 0;
                         }
                 }
             }
+
         }
 
         al_destroy_bitmap(fundo);
@@ -322,7 +338,7 @@ int main() {
     char* cyan="\033[0;36m";
     char* bwhite="\033[1;37m";
 
-    printf("\n\n\n%s            CRÉDITOS FINAIS:%s\n            ~~~~~~~~~~~~~~~~\n", bred, cyan);
+    printf("\n\n%s            CRÉDITOS FINAIS:%s\n            ~~~~~~~~~~~~~~~~\n", bred, cyan);
     printf("%sDesenvolvimento: %sGuiusepe Oneda Dal Pai\n", red, bwhite);
     printf("%s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n", cyan);
     printf("%s      Design: %sPedro Lucca Pereira\n", red, bwhite);

@@ -95,14 +95,18 @@ void printaLevel(ALLEGRO_FONT* font, int q, Window win){
 }
 
 int checarRecord(int lvl){
+    int mudou = 0;
     FILE* file = fopen(".rcd", "r+");
     int aux;
     fscanf(file, "%d", &aux);
     if(lvl > aux || aux > 20000){
+        mudou = 1;
         fseek(file, 0, SEEK_SET);
         fprintf(file, "%d", lvl);
     }
     fclose(file);
+
+    return mudou;
 }
 
 void imgsRecorde(ALLEGRO_BITMAP** imgs){
